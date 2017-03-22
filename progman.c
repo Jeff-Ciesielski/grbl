@@ -5,7 +5,7 @@
 #include "serial.h"
 #include "motion_control.h"
 
-#define PROGRAM_MAX_SIZE (1024 * 3)
+#define PROGRAM_MAX_SIZE (2560)
 
 DECLARE_QUEUE(prog_buf, uint8_t, PROGRAM_MAX_SIZE);
 
@@ -23,9 +23,8 @@ static struct {
 
 void progman_init(void)
 {
-  progman.line_pos = 0;
-
   queue_init(&prog_buf, sizeof(uint8_t), PROGRAM_MAX_SIZE);
+  progman.line_pos = 0;
 
   while (!queue_is_empty(&prog_buf)) {
     uint8_t nil;
